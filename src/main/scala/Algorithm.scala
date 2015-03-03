@@ -17,7 +17,7 @@ class Algorithm(val ap: AlgorithmParams)
 
   @transient lazy val logger = Logger[this.type]
 
-  def train(data: PreparedData): Model = {
+  def train(sc: SparkContext, data: PreparedData): Model = {
     // Simply count number of events
     // and multiple it by the algorithm parameter
     // and store the number as model
