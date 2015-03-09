@@ -1,9 +1,8 @@
-package org.template.vanilla
+package org.template.classification
 
 import io.prediction.controller.LServing
 
-class Serving
-  extends LServing[Query, PredictedResult] {
+class Serving extends LServing[Query, PredictedResult] {
 
   override
   def serve(query: Query,

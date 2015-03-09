@@ -1,37 +1,40 @@
-package org.template.vanilla
+package org.template.classification
 
 import io.prediction.controller.P2LAlgorithm
 import io.prediction.controller.Params
 
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.rdd.RDD
+import org.apache.spark.mllib.classification.NaiveBayes
+import org.apache.spark.mllib.classification.NaiveBayesModel
+import org.apache.spark.mllib.regression.LinearRegressionWithSGD
+import org.apache.spark.mllib.regression.LinearRegressionModel
+import org.apache.spark.mllib.linalg.Vectors
 
 import grizzled.slf4j.Logger
 
-case class AlgorithmParams(mult: Int) extends Params
+case class AlgorithmParams(
+  val lambda: Double
+) extends Params
 
-class Algorithm(val ap: AlgorithmParams)
-  // extends PAlgorithm if Model contains RDD[]
-  extends P2LAlgorithm[PreparedData, Model, Query, PredictedResult] {
+// extends P2LAlgorithm because the MLlib's NaiveBayesModel doesn't contain RDD.
+class NaiveBayesAlgorithm(val ap: AlgorithmParams)
+  extends P2LAlgorithm[PreparedData, LinearRegressionModel, Query, PredictedResult] {
 
   @transient lazy val logger = Logger[this.type]
 
-  def train(data: PreparedData): Model = {
-    // Simply count number of events
-    // and multiple it by the algorithm parameter
-    // and store the number as model
-    val count = data.events.count().toInt * ap.mult
-    new Model(mc = count)
+  def train(data: PreparedData): LinearRegressionModel = {
+    // MLLib NaiveBayes cannot handle empty training data.
+    require(!data.labeledPoints.take(1).isEmpty,
+      s"RDD[labeldPoints] in PreparedData cannot be empty." +
+      " Please check if DataSource generates TrainingData" +
+      " and Preprator generates PreparedData correctly.")
+    val lin = new LinearRegressionWithSGD() 
+    lin.run(data.labeledPoints)
   }
 
-  def predict(model: Model, query: Query): PredictedResult = {
-    // Prefix the query with the model data
-    val result = s"${model.mc}-${query.q}"
-    PredictedResult(p = result)
+  def predict(model: LinearRegressionModel, query: Query): PredictedResult = {
+  
+    val label = model.predict(Vectors.dense(query.features))
+    new PredictedResult(label)
   }
-}
 
-class Model(val mc: Int) extends Serializable {
-  override def toString = s"mc=${mc}"
 }

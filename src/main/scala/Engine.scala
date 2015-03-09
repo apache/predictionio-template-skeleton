@@ -1,18 +1,24 @@
-package org.template.vanilla
+
+package org.template.classification 
+
 
 import io.prediction.controller.IEngineFactory
 import io.prediction.controller.Engine
 
-case class Query(q: String) extends Serializable
+class Query(
+  val features: Array[Double]
+) extends Serializable
 
-case class PredictedResult(p: String) extends Serializable
+class PredictedResult(
+  val label: Double
+) extends Serializable
 
-object VanillaEngine extends IEngineFactory {
+object ClassificationEngine extends IEngineFactory {
   def apply() = {
     new Engine(
       classOf[DataSource],
       classOf[Preparator],
-      Map("algo" -> classOf[Algorithm]),
+      Map("naive" -> classOf[NaiveBayesAlgorithm]),
       classOf[Serving])
   }
 }
