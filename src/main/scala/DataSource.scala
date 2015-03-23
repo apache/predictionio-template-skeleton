@@ -1,4 +1,4 @@
-package org.template.classification
+package org.template.vanilla
 
 import io.prediction.controller.PDataSource
 import io.prediction.controller.EmptyEvaluationInfo
@@ -26,15 +26,23 @@ class DataSource(val dsp: DataSourceParams)
   override
   def readTraining(sc: SparkContext): TrainingData = {
     val eventsDb = Storage.getPEvents()
-    val labeledPoints: RDD[LabeledPoint] = eventsDb.aggregateProperties(
+
+//Read all events involving "point" type 
+       println("Gathering data from the event server")
+
+
+    val training_points: RDD[LabeledPoint] = eventsDb.aggregateProperties(
+      
       appId = dsp.appId,
-      entityType = "user",
+      entityType = "training_point",
+
       // only keep entities with these required properties defined
       required = Some(List("plan", "attr0", "attr1", "attr2")))(sc)
       // aggregateProperties() returns RDD pair of
       // entity ID and its aggregated properties
       .map { case (entityId, properties) =>
         try {
+	//Converting to Labeled Point as the LinearRegression Algorithm requires
           LabeledPoint(properties.get[Double]("plan"),
             Vectors.dense(Array(
               properties.get[Double]("attr0"),
@@ -51,10 +59,10 @@ class DataSource(val dsp: DataSourceParams)
         }
       }
 
-    new TrainingData(labeledPoints)
+    new TrainingData(training_points)
   }
 }
 
 class TrainingData(
-  val labeledPoints: RDD[LabeledPoint]
+  val training_points: RDD[LabeledPoint]
 ) extends Serializable

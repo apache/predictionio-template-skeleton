@@ -1,5 +1,5 @@
 
-package org.template.classification 
+package org.template.vanilla
 
 
 import io.prediction.controller.IEngineFactory
@@ -10,15 +10,15 @@ class Query(
 ) extends Serializable
 
 class PredictedResult(
-  val label: Double
+  val prediction: Double
 ) extends Serializable
 
-object ClassificationEngine extends IEngineFactory {
+object VanillaEngine extends IEngineFactory {
   def apply() = {
     new Engine(
       classOf[DataSource],
       classOf[Preparator],
-      Map("naive" -> classOf[NaiveBayesAlgorithm]),
+      Map("algo" -> classOf[algo]),
       classOf[Serving])
   }
 }
