@@ -37,9 +37,10 @@ class algo(val ap: AlgorithmParams)
     val lin = new LinearRegressionWithSGD() 
 
     
-implicit def str2bool(string:String):Boolean = string.toUpperCase.equals("TRUE")
 
 
+    //It is set to True only in the intercept field is set to 1
+    //Right now, I am inputting this parameter as an integer, could be changed to String or Bool as necessary
 
     lin.setIntercept(ap.intercept.equals(1))
     lin.run(data.training_points)
