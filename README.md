@@ -1,4 +1,4 @@
-# Classification Engine Template
+# Vanilla Engine Template
 
 ## Documentation
 
