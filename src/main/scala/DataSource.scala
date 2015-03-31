@@ -37,7 +37,7 @@ class DataSource(val dsp: DataSourceParams)
       entityType = "training_point",
 
       // only keep entities with these required properties defined
-      required = Some(List("plan", "attr0", "attr1", "attr2")))(sc)
+      required = Some(List("plan", "attr0", "attr1", "attr2", "attr3", "attr4", "attr5", "attr6", "attr7")))(sc)
       // aggregateProperties() returns RDD pair of
       // entity ID and its aggregated properties
       .map { case (entityId, properties) =>
@@ -47,7 +47,12 @@ class DataSource(val dsp: DataSourceParams)
             Vectors.dense(Array(
               properties.get[Double]("attr0"),
               properties.get[Double]("attr1"),
-              properties.get[Double]("attr2")
+	      properties.get[Double]("attr2"),
+	      properties.get[Double]("attr3"),
+	      properties.get[Double]("attr4"),	
+	      properties.get[Double]("attr5"),
+	      properties.get[Double]("attr6"),
+              properties.get[Double]("attr7")
             ))
           )
         } catch {
