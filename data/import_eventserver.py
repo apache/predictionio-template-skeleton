@@ -13,7 +13,7 @@ def import_events(client, file):
     data = line.rstrip('\r\n').split(",")
     plan = data[0]
     attr = data[1].split(" ")
-    #print(attr);
+
     client.create_event(
       event="$set",
       entity_type="training_point",
