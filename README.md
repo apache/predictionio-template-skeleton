@@ -49,7 +49,6 @@ client.create_event(
 		"attr5" : int(attr[5]),
 		"attr6" : int(attr[6]),
 		"attr7" : int(attr[7]),
-		"attr8" : int(attr[8]),
         "plan" : int(plan)
       }
 ```
@@ -156,7 +155,7 @@ If the "intercept" parameter is set to 1, then the linear regression model is tr
   },
   "algorithms": [
     {
-      "name": "decisiontree",
+      "name": "algo",
       "params": {
         
         "intercept": 1,     
@@ -201,7 +200,7 @@ This will deploy an engine that binds to http://localhost:8000. You can visit th
 
 ## Use the Engine
 
-Now, You can try to retrieve predicted results. For example, to predict the target variable(i.e. prostate specific antigen) of a user with 
+Now, You can try to retrieve predicted results. For example, to predict the target variable(i.e. prostate specific antigen) of a patient with 
 attr0 = -1
 attr1 = -2
 attr2 = -1
@@ -224,7 +223,11 @@ The following is sample JSON response:
 {"prediction": 0.7915352224221848}
 ```
 
-The sample query can be found in **test.py**
+The sample query can be found in **sample.py**, which can be executed :
+
+```
+python sample.py
+```
 
 
 
