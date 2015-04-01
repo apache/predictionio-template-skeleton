@@ -44,8 +44,6 @@ class algo(val ap: AlgorithmParams)
     //Right now, I am inputting this parameter as an integer, could be changed to String or Bool as necessary
     
     lin.setIntercept(ap.intercept.equals(1.0))
-
-    //lin.setIntercept(true)
     lin.run(data.training_points)
   }
 
