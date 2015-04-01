@@ -10,6 +10,7 @@ import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 
+import org.apache.spark.SparkContext
 import grizzled.slf4j.Logger
 
 
@@ -28,7 +29,7 @@ class algo(val ap: AlgorithmParams)
 
   @transient lazy val logger = Logger[this.type]
 
-  def train(data: PreparedData): LinearRegressionModel = {
+  def train(sc:SparkContext, data: PreparedData): LinearRegressionModel = {
     // MLLib Linear Regression cannot handle empty training data.
     require(!data.training_points.take(1).isEmpty,
       s"RDD[labeldPoints] in PreparedData cannot be empty." +
@@ -41,8 +42,10 @@ class algo(val ap: AlgorithmParams)
 
     //It is set to True only in the intercept field is set to 1
     //Right now, I am inputting this parameter as an integer, could be changed to String or Bool as necessary
+    
+    lin.setIntercept(ap.intercept.equals(1.0))
 
-    lin.setIntercept(ap.intercept.equals(1))
+    //lin.setIntercept(true)
     lin.run(data.training_points)
   }
 
