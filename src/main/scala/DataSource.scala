@@ -1,4 +1,4 @@
-package org.template.vanilla
+package org.example.vanilla
 
 import org.apache.predictionio.controller.PDataSource
 import org.apache.predictionio.controller.EmptyEvaluationInfo

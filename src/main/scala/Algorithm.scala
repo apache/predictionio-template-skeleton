@@ -1,4 +1,4 @@
-package org.template.vanilla
+package org.example.vanilla
 
 import org.apache.predictionio.controller.P2LAlgorithm
 import org.apache.predictionio.controller.Params
