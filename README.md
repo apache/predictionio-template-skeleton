@@ -1,10 +1,17 @@
-# Vanilla Engine Template
+# Skeleton Engine Template
 
 ## Documentation
 
 Please refer to http://predictionio.incubator.apache.org/templates/vanilla/quickstart/
 
 ## Versions
+
+### v0.11.0-incubating
+
+- Bump version number to track PredictionIO version
+- Added basic tests
+- Rename Scala package name
+- Update SBT version
 
 ### v0.4.0
 

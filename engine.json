@@ -1,7 +1,7 @@
 {
   "id": "default",
   "description": "Default settings",
-  "engineFactory": "org.template.vanilla.VanillaEngine",
+  "engineFactory": "org.example.vanilla.VanillaEngine",
   "datasource": {
     "params" : {
       "appName": "INVALID_APP_NAME"

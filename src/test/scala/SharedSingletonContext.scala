@@ -1,4 +1,4 @@
-package org.template.vanilla
+package org.example.vanilla
 
 import org.apache.spark.{SparkConf, SparkContext}
 import org.scalatest.{BeforeAndAfterAll, Suite}
