@@ -2,9 +2,13 @@
 
 ## Documentation
 
-Please refer to http://predictionio.incubator.apache.org/templates/vanilla/quickstart/
+Please refer to https://predictionio.apache.org/templates/vanilla/quickstart/
 
 ## Versions
+
+### v0.13.0
+
+Update for Apache PredictionIO 0.13.0
 
 ### v0.12.0-incubating
 
