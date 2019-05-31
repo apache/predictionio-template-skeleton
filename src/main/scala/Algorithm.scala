@@ -15,6 +15,7 @@ class Algorithm(val ap: AlgorithmParams)
 
   @transient lazy val logger = Logger[this.type]
 
+  override
   def train(sc: SparkContext, data: PreparedData): Model = {
     // Simply count number of events
     // and multiple it by the algorithm parameter
@@ -23,6 +24,7 @@ class Algorithm(val ap: AlgorithmParams)
     new Model(mc = count)
   }
 
+  override
   def predict(model: Model, query: Query): PredictedResult = {
     // Prefix the query with the model data
     val result = s"${model.mc}-${query.q}"
